@@ -1,5 +1,4 @@
 name: hapi
-
 on:
   push:
     branches: [main]
@@ -12,7 +11,6 @@ on:
       - 'hapi/**'
       - '.github/workflows/hapi.yml'
   workflow_dispatch:
-
 jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -24,29 +22,22 @@ jobs:
         working-directory: ./hapi
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
           cache: 'pip'
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Setup virtual environment
+      - name: Deploy Zappa
         run: |
           python -m pip install --upgrade pip
-          python -m venv .venv
-          . .venv/bin/activate
+          python -m venv venv
           pip install -r requirements.txt
-
-      - name: Create Zappa config
-        run: |
           cat > zappa_settings.json << EOL
           {
             "production": {
@@ -65,9 +56,4 @@ jobs:
             }
           }
           EOL
-
-      - name: Deploy with Zappa
-        run: |
-          VIRTUAL_ENV=$(pwd)/.venv
-          PATH="$VIRTUAL_ENV/bin:$PATH"
           zappa update production
