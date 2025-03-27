@@ -34,7 +34,6 @@
     "@electron-toolkit/eslint-config": "^1.0.2",
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
     "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
@@ -62,14 +61,7 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       "@semantic-release/git",
-      "@semantic-release/github",
-      "@semantic-release/exec"
-    ],
-    "prepare": [
-      {
-        "path": "@semantic-release/exec",
-        "cmd": "yarn build && electron-builder"
-      }
+      "@semantic-release/github"
     ],
     "publish": [
       {
