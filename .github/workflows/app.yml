@@ -70,13 +70,29 @@ jobs:
     needs: release
     if: needs.release.outputs.published == 'true' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         include:
           - os: ubuntu-latest
             build_command: build:linux
+            artifacts: |
+              ./app/dist/**/*.AppImage
+              ./app/dist/**/*.deb
+              ./app/dist/**/*.rpm
+          - os: windows-latest
+            build_command: build:win
+            artifacts: |
+              ./app/dist/**/*.exe
+              ./app/dist/**/*.zip
+          - os: macos-latest
+            build_command: build:mac
+            artifacts: |
+              ./app/dist/**/*.dmg
+              ./app/dist/**/*.zip
     defaults:
       run:
         working-directory: ./app
@@ -101,18 +117,14 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: '${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}'
           VITE_FIREBASE_APP_ID: '${{ secrets.VITE_FIREBASE_APP_ID }}'
           VITE_API_URL: '${{ secrets.VITE_API_URL }}'
+      - name: Show build artifacts
+        run: ls -lhR ./app/dist || true
       - name: Upload artifacts
         if: github.event_name != 'pull_request' && needs.release.outputs.published == 'true'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: app-v${{ needs.release.outputs.version }}
-          files: |
-            ./app/dist/**/*.exe
-            ./app/dist/**/*.dmg
-            ./app/dist/**/*.AppImage
-            ./app/dist/**/*.deb
-            ./app/dist/**/*.rpm
-            ./app/dist/**/*.zip
+          files: ${{ matrix.artifacts }}
           draft: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
