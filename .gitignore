@@ -1,0 +1,19 @@
+# app
+app/node_modules
+app/dist
+app/out
+app/build
+
+# hapi
+hapi/zappa_settings.json
+**/__pycache__
+hapi/tinydb
+hapi/venv
+hapi/firebase-service-account.json
+
+
+# other
+*.log*
+.vscode
+.DS_Store
+**/.env

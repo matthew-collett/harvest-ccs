@@ -1,0 +1,6 @@
+export * from './settingsSlice'
+export * from './teamSlice'
+export * from './roundSlice'
+export * from './deviceSlice'
+export * from './taskSlice'
+export * from './tournamentSlice'
