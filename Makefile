@@ -1,4 +1,4 @@
-.PHONY: hapi-setup hapi-start app-setup app-start setup start
+.PHONY: hapi-setup hapi-start app-setup app-start setup
 
 PYTHON = python3.12
 
@@ -22,7 +22,7 @@ PORT = 5000
 APP_DIR = app
 
 # hapi targets
-hapi-setup: 
+hapi-setup:
 	$(PYTHON) -m venv hapi/venv
 	$(ACTIVATE) $(CHAIN) $(VENV_PIP) install -r hapi/requirements.txt
 
@@ -38,4 +38,3 @@ app-start:
 
 # both
 setup: hapi-setup app-setup
-start: hapi-start app-start

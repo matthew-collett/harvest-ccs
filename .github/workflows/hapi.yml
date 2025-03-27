@@ -36,7 +36,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Create Zappa settings
+      - name: Create Zappa config
         run: |
           cat > zappa_settings.json << EOL
           {
@@ -54,3 +54,5 @@ jobs:
             }
           }
           EOL
+      - name: Deploy
+        run: zappa update production
