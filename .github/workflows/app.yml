@@ -14,60 +14,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  release:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./app
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 'lts/*'
-          cache: 'yarn'
-          cache-dependency-path: ./app/yarn.lock
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-      - name: Lint
-        run: yarn lint
-
-  release:
     permissions:
       contents: write
       issues: write
       pull-requests: write
-    needs: lint
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        include:
-          - os: ubuntu-latest
-            platform: linux
-          - os: windows-latest
-            platform: win
-          - os: macos-latest
-            platform: mac
-    env:
-      PLATFORM: ${{ matrix.platform }}
-    defaults:
-      run:
-        working-directory: ./app
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
           cache: 'yarn'
           cache-dependency-path: ./app/yarn.lock
+
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Build & Release
+
+      - name: Build and release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PLATFORM: ${{ matrix.platform }}
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
           VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
           VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
@@ -75,4 +48,3 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
-        run: npx semantic-release

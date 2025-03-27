@@ -61,25 +61,25 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       "@semantic-release/git",
-      "@semantic-release/exec",
-      "@semantic-release/github"
+      "@semantic-release/github",
+      "@semantic-release/exec"
     ],
     "prepare": [
       {
         "path": "@semantic-release/exec",
-        "cmd": "yarn build:${PLATFORM}"
+        "cmd": "yarn build && electron-builder"
       }
     ],
     "publish": [
       {
         "path": "@semantic-release/github",
         "assets": [
-          "dist/HarvestCCS-*.AppImage",
-          "dist/HarvestCCS-*.deb",
-          "dist/HarvestCCS-*.rpm",
           "dist/HarvestCCS-*.dmg",
           "dist/HarvestCCS-*.exe",
-          "dist/HarvestCCS-*.zip"
+          "dist/HarvestCCS-*.AppImage",
+          "dist/HarvestCCS-*.zip",
+          "dist/HarvestCCS-*.deb",
+          "dist/HarvestCCS-*.rpm"
         ]
       }
     ]
