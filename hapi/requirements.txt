@@ -11,7 +11,7 @@ charset-normalizer==3.4.1
 click==8.1.8
 cryptography==44.0.2
 durationpy==0.9
-firebase-admin==6.5.0
+firebase-admin==6.7.0
 Flask==3.1.0
 google-api-core==2.24.2
 google-api-python-client==2.166.0
