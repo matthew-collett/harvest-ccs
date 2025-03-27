@@ -15,25 +15,24 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    env:
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
     defaults:
       run:
         working-directory: ./hapi
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
           cache: 'pip'
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
       - name: Setup virtual environment
         run: |
           python -m pip install --upgrade pip
@@ -41,7 +40,6 @@ jobs:
           echo "VIRTUAL_ENV=$(pwd)/.venv" >> $GITHUB_ENV
           echo "$(pwd)/.venv/bin" >> $GITHUB_PATH
           pip install -r requirements.txt
-
       - name: Create Zappa config
         run: |
           cat > zappa_settings.json << EOL
@@ -54,12 +52,13 @@ jobs:
               "base_path": "",
               "aws_region": "${{ secrets.AWS_REGION }}",
               "exclude": ["boto3", "dateutil", "botocore", "s3transfer", "concurrent"],
+              "manage_roles": false,
+              "role_name": "hapi-production-ZappaLambdaExecutionRole",
               "project_name": "hapi",
               "runtime": "python3.12",
               "s3_bucket": "${{ secrets.S3_BUCKET }}"
             }
           }
           EOL
-
       - name: Deploy
         run: zappa update production
