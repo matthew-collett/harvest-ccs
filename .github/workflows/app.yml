@@ -5,12 +5,12 @@ on:
     branches: [main]
     paths:
       - 'app/**'
-      - '.github/workflows/release.yml'
+      - '.github/workflows/app.yml'
   pull_request:
     branches: [main]
     paths:
       - 'app/**'
-      - '.github/workflows/release.yml'
+      - '.github/workflows/app.yml'
   workflow_dispatch:
 
 jobs:
