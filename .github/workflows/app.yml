@@ -48,6 +48,8 @@ jobs:
             platform: win
           - os: macos-latest
             platform: mac
+    env:
+      PLATFORM: ${{ matrix.platform }}
     defaults:
       run:
         working-directory: ./app

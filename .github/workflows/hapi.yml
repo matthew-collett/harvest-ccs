@@ -1,4 +1,5 @@
 name: hapi
+
 on:
   push:
     branches: [main]
@@ -11,6 +12,7 @@ on:
       - 'hapi/**'
       - '.github/workflows/hapi.yml'
   workflow_dispatch:
+
 jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -22,22 +24,33 @@ jobs:
         working-directory: ./hapi
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
           cache: 'pip'
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Write Firebase service account key
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}" | base64 -d > firebase-service-account.json
+        working-directory: ./hapi
+
       - name: Deploy Zappa
+        shell: bash
         run: |
           python -m pip install --upgrade pip
-          python -m venv venv
+          python -m venv .venv
+          source .venv/bin/activate
           pip install -r requirements.txt
+
           cat > zappa_settings.json << EOL
           {
             "production": {
@@ -56,4 +69,5 @@ jobs:
             }
           }
           EOL
+
           zappa update production
