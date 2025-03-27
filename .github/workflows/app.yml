@@ -5,39 +5,101 @@ on:
     branches: [main]
     paths:
       - 'app/**'
-      - '.github/workflows/app.yml'
+      - '.github/workflows/release.yml'
   pull_request:
     branches: [main]
     paths:
       - 'app/**'
-      - '.github/workflows/app.yml'
+      - '.github/workflows/release.yml'
   workflow_dispatch:
 
 jobs:
-  release:
+  lint:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./app
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-
+          fetch-depth: 1
       - uses: actions/setup-node@v3
         with:
           node-version: 'lts/*'
           cache: 'yarn'
           cache-dependency-path: ./app/yarn.lock
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Lint
+        run: yarn lint
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          cache: yarn
+          cache-dependency-path: ./app/yarn.lock
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Build and release
+      - name: Build app
+        run: yarn build
+
+      - name: Package app for ${{ matrix.os }}
+        run: |
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            yarn build:linux
+          elif [ "${{ matrix.os }}" == "windows-latest" ]; then
+            yarn build:win
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+            yarn build:mac
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ matrix.os }}
+          path: dist/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          cache: yarn
+          cache-dependency-path: ./app/yarn.lock
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: dist
+
+      - name: Run semantic-release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
