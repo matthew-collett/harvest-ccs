@@ -32,6 +32,10 @@ jobs:
         run: yarn lint
 
   release:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     needs: lint
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
