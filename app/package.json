@@ -4,6 +4,7 @@
   "description": "Harvest Competition Control System",
   "homepage": "https://github.com/matthew-collett/harvest-ccs",
   "license": "ISC",
+  "url": "https://github.com/matthew-collett/harvest-ccs.git",
   "main": "./out/main/index.js",
   "author": "Matthew Collett",
   "scripts": {
