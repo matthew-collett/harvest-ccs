@@ -56,10 +56,11 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Build app
+      - name: Build
         run: yarn build
 
-      - name: Package app for ${{ matrix.os }}
+      - name: Package for ${{ matrix.os }}
+        shell: bash
         run: |
           if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
             yarn build:linux
@@ -69,11 +70,20 @@ jobs:
             yarn build:mac
           fi
 
+      - name: Debug directory structure
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Directory contents:"
+          ls -la
+          echo "Dist directory (if exists):"
+          ls -la dist/ || echo "dist directory does not exist"
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.os }}
-          path: dist/
+          path: ./app/dist/
 
   release:
     needs: build
@@ -97,7 +107,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          path: dist
+          path: ./app/dist
 
       - name: Run semantic-release
         run: npx semantic-release
