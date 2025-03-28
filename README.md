@@ -17,6 +17,12 @@
 - [Harvest Competition Control System](#harvest-competition-control-system)
   - [Table of Contents](#table-of-contents)
   - [Download & Install](#download--install)
+  - [Local Run](#local-run)
+    - [Prerequisites](#prerequisites)
+    - [Configuration](#configuration)
+    - [Run App](#run-app)
+    - [Run HAPI](#run-hapi)
+    - [Building For Production](#building-for-production)
   - [Documentation](#documentation)
   - [Contributing](#contributing)
   - [License](#license)
@@ -32,14 +38,6 @@ xattr -c '/Applications/Harvest Competition Control System.app'
 ```
 
 For more information, see this [thread](https://discussions.apple.com/thread/253714860?sortBy=rank).
-
-## Documentation
-
-All documentation for this project is stored in [`docs/`](docs). The structure is outlined below:
-
-- For information about the architecture, see [`docs/architecture.md`](docs/architecture.md).
-- For information about the serial communication protocol used, see [`docs/serial-protocol.md`](docs/serial-protocol.md).
-- For an outline of the user guide, see [`docs/user-guide.md`](docs/user-guide.md).
 
 ## Local Run
 
@@ -60,7 +58,7 @@ cd harvest-ccs
 
 #### Electron App
 
-1. Create a `.env` file in the `/app` directory with the following variables:
+Create a `.env` file in the `/app` directory with the following variables:
 
 ```bash
 VITE_FIREBASE_API_KEY=
@@ -76,7 +74,7 @@ Reach out to me for these values
 
 #### HAPI
 
-1. Create a `.env` file in the `/hapi` directory with the following variables:
+Create a `.env` file in the `/hapi` directory with the following variables:
 
 ```bash
 S3_BUCKET=
@@ -84,7 +82,7 @@ S3_BUCKET=
 
 Reach out to me for this value
 
-2. Place your firebase-sevice-account.json key in the `hapi/app` directory. Reach out to me for this file.
+Place your `firebase-sevice-account.json` key in the `hapi/app` directory. Reach out to me for this file.
 
 ### Run App
 
@@ -134,6 +132,14 @@ yarn build:win    # Windows
 yarn build:mac    # macOS
 yarn build:linux  # Linux
 ```
+
+## Documentation
+
+All documentation for this project is stored in [`docs/`](docs). The structure is outlined below:
+
+- For information about the architecture, see [`docs/architecture.md`](docs/architecture.md).
+- For information about the serial communication protocol used, see [`docs/serial-protocol.md`](docs/serial-protocol.md).
+- For an outline of the user guide, see [`docs/user-guide.md`](docs/user-guide.md).
 
 ## Contributing
 
