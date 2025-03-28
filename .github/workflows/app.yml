@@ -56,9 +56,6 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Build
-        run: yarn build
-
       - name: Package for ${{ matrix.os }}
         shell: bash
         run: |
@@ -69,15 +66,6 @@ jobs:
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
             yarn build:mac
           fi
-
-      - name: Debug directory structure
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "Directory contents:"
-          ls -la
-          echo "Dist directory (if exists):"
-          ls -la dist/ || echo "dist directory does not exist"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
