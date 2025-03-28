@@ -53,7 +53,6 @@ export const ScoringView = () => {
     return team ? team.name : `Team ${teamId}`
   }
 
-  // Get task name by ID
   const getTaskName = (taskId) => {
     return tasks[taskId]?.name || `Task ${taskId}`
   }

@@ -19,14 +19,8 @@ export const TeamsView = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [editingTeam, setEditingTeam] = useState(null)
   const [expandedSection, setExpandedSection] = useState(null)
-
-  // New team state
   const [newTeam, setNewTeam] = useState({ id: '', name: '' })
-
-  // New student state
   const [newStudent, setNewStudent] = useState({ name: '', teamId: '' })
-
-  // New device state
   const [newDevice, setNewDevice] = useState({
     teamId: '',
     playerId: '',
@@ -167,7 +161,6 @@ export const TeamsView = () => {
   return (
     <>
       <Header />
-      {/* Actions Card */}
       <SectionHeader>Teams Actions</SectionHeader>
       <div className="mb-6 bg-zinc-800/50 rounded-lg border border-zinc-700/50 overflow-hidden">
         <div className="p-4 flex gap-4">
@@ -180,8 +173,6 @@ export const TeamsView = () => {
             New Device
           </Button>
         </div>
-
-        {/* Expandable Forms */}
         {expandedSection === 'add-team' && (
           <div className="px-4 pb-4 border-t border-zinc-700/30">
             <div className="pt-4 grid grid-cols-2 gap-4">
@@ -322,7 +313,6 @@ export const TeamsView = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-0 divide-x divide-zinc-700/50">
-              {/* Students Section */}
               <div className="p-4">
                 <div className="flex items-center gap-2 text-zinc-300 mb-3">
                   <Users size={18} />
@@ -367,7 +357,6 @@ export const TeamsView = () => {
                 </div>
               </div>
 
-              {/* Devices Section */}
               <div className="p-4">
                 <div className="flex items-center gap-2 text-zinc-300 mb-3">
                   <Cpu size={18} />
