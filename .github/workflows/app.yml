@@ -33,46 +33,46 @@ jobs:
       - name: Lint
         run: yarn lint
 
-build:
-  needs: lint
-  strategy:
-    matrix:
-      os: [ubuntu-latest, windows-latest, macos-latest]
-  runs-on: ${{ matrix.os }}
-  defaults:
-    run:
-      working-directory: ./app
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 'lts/*'
-        cache: yarn
-        cache-dependency-path: ./app/yarn.lock
-    - name: Install dependencies
-      run: yarn --frozen-lockfile
-    - name: Package for ${{ matrix.os }}
-      shell: bash
-      env:
-        VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
-        VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
-        VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-        VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
-        VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
-        VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
-        VITE_API_URL: ${{ secrets.VITE_API_URL }}
-      run: |
-        if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-          yarn build:linux
-        elif [ "${{ matrix.os }}" == "windows-latest" ]; then
-          yarn build:win
-        elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-          yarn build:mac
-        fi
+  build:
+    needs: lint
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: yarn
+          cache-dependency-path: ./app/yarn.lock
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Package for ${{ matrix.os }}
+        shell: bash
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        run: |
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            yarn build:linux
+          elif [ "${{ matrix.os }}" == "windows-latest" ]; then
+            yarn build:win
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+            yarn build:mac
+          fi
 
   release:
     permissions:
