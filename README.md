@@ -16,6 +16,10 @@
 
 - [Harvest Competition Control System](#harvest-competition-control-system)
   - [Table of Contents](#table-of-contents)
+  - [Download & Install](#download--install)
+  - [Documentation](#documentation)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Download & Install
 
@@ -31,7 +35,9 @@ For more information, see this [thread](https://discussions.apple.com/thread/253
 
 ## Documentation
 
-- Fore informattion about running this application locally, see [`docs/local.md`](docs/local.md).
+All documentation for this project is stored in [`docs/`](docs). The structure is outlined below:
+
+- For informattion about running this application on your local machine, see [`docs/local.md`](docs/local.md).
 - For information about the architecture, see [`docs/architecture.md`](docs/architecture.md).
 - For information about the serial communication protocol used, see [`docs/serial-protocol.md`](docs/serial-protocol.md).
 - For an outline of the user guide, see [`docs/user-guide.md`](docs/user-guide.md).
