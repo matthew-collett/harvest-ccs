@@ -17,8 +17,6 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    env:
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
     defaults:
       run:
         working-directory: ./hapi
@@ -37,11 +35,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Write Firebase service account key
-        run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}" | base64 -d > firebase-service-account.json
-        working-directory: ./hapi
 
       - name: Deploy Zappa
         shell: bash
@@ -65,7 +58,11 @@ jobs:
               "role_name": "hapi-production-ZappaLambdaExecutionRole",
               "project_name": "hapi",
               "runtime": "python3.12",
-              "s3_bucket": "${{ secrets.S3_BUCKET }}"
+              "s3_bucket": "${{ secrets.S3_BUCKET }}",
+              "environment_variables": {
+                "FIREBASE_SERVICE_ACCOUNT": "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}",
+                "S3_BUCKET": "${{ secrets.S3_BUCKET }}"
+              }
             }
           }
           EOL

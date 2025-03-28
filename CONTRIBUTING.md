@@ -19,12 +19,13 @@ yarn lint && yarn format
 1. Create a new branch from `main`
 2. Make your changes and test
 3. Update documentation as needed
-4. Ensure your code passes all automated tests and linting
-5. Submit a pull request with a clear description of the changes
+4. Commit your changes to your branch
+   > Note: You MUST use the fix|feat|...: prefix in your commit message. Including the colon (:). See all valid prefixes below
+5. Submit a pull request
 
 ## Commit Message Guidelines
 
-We follow conventional commits for clear and standardized commit messages:
+This project uses semantic versioning with the commit message analyzer plugin. This means that in order for semantic versioning to properly package, version, and release changes, you must follow the below guidelines for commit messages:
 
 - `feat`: A new feature
 - `fix`: A bug fix
@@ -39,16 +40,3 @@ Example: `feat: add team scoring visualization`
 ## Branching Strategy
 
 - `main`: Production-ready code
-- `develop`: Integration branch for features
-- `feature/*`: New features or enhancements
-- `fix/*`: Bug fixes
-- `docs/*`: Documentation updates
-
-## Release Process
-
-We use semantic versioning for releases. The release process is automated through GitHub Actions:
-
-1. Features are merged into `develop`
-2. When ready for release, `develop` is merged into `main`
-3. GitHub Actions will build the application and create a new release with semantic versioning
-

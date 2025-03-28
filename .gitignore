@@ -9,7 +9,7 @@ hapi/zappa_settings.json
 **/__pycache__
 hapi/tinydb
 hapi/venv
-hapi/firebase-service-account.json
+**/firebase-service-account.json
 
 
 # other
