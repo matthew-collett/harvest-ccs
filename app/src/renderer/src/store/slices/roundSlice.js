@@ -31,7 +31,7 @@ export const createRoundSlice = (set, get) => {
         }
       })),
 
-    updateTaskStatus: (taskId, status, teamId, playerId, id) =>
+    updateTaskStatus: (taskId, status, teamId, playerId, uniqueId) =>
       set((state) => {
         if (state.currentRound.tasks[taskId]?.status === 2) {
           console.log(`Task ${taskId} is already completed, ignoring update request`)
@@ -51,7 +51,7 @@ export const createRoundSlice = (set, get) => {
                 status,
                 teamId,
                 playerId,
-                id,
+                uniqueId,
                 completedAt
               }
             }

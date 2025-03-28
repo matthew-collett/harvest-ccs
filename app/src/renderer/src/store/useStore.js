@@ -88,15 +88,15 @@ export const useStore = create((set, get) => {
               const id = `${deviceStats.teamId}-${deviceStats.playerId}-${deviceStats.deviceId}`
 
               const shouldListen =
-                state.currentRound.team1Id === deviceStats.teamId.toString() ||
-                state.currentRound.team2Id === deviceStats.teamId.toString()
+                state.currentRound.team1Id === deviceStats.teamId ||
+                state.currentRound.team2Id === deviceStats.teamId
 
               if (!shouldListen) {
                 console.log(`Ignoring update for device ${id} (not competing)`)
                 return
               }
 
-              get().updateDeviceStatus(deviceStats.teamId.toString(), id, deviceStats)
+              get().updateDeviceStatus(deviceStats.teamId, id, deviceStats)
             } catch (error) {
               console.error('Error processing serial data:', error)
             }
@@ -104,9 +104,9 @@ export const useStore = create((set, get) => {
             // SET_TASK_COMMAND
             try {
               const taskData = {
-                teamId: payload[0].toString(),
-                playerId: payload[1].toString(),
-                deviceId: payload[2].toString(),
+                teamId: payload[0],
+                playerId: payload[1],
+                deviceId: payload[2],
                 taskId: payload[3],
                 status: payload[4]
               }
@@ -128,14 +128,14 @@ export const useStore = create((set, get) => {
                 return
               }
 
-              const id = `${taskData.teamId}-${taskData.playerId}-${taskData.deviceId}`
+              const uniqueId = `${taskData.teamId}-${taskData.playerId}-${taskData.deviceId}`
 
               get().updateTaskStatus(
                 taskData.taskId,
                 taskData.status,
                 taskData.teamId,
                 taskData.playerId,
-                id
+                uniqueId
               )
 
               // also update activity

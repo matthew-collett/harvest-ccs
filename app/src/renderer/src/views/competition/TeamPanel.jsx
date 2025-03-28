@@ -30,7 +30,7 @@ export const TeamPanel = ({ team }) => {
     if (!currentRound.tasks || !currentRound.isActive) return null
     const activeTask = Object.entries(currentRound.tasks).find(
       // eslint-disable-next-line no-unused-vars
-      ([_, task]) => task.teamId === team.id && task.deviceId === rover.id && task.status === 1
+      ([_, task]) => task.teamId === team.id && task.uniqueId === rover.id && task.status === 1
     )
     if (!activeTask) return null
     const [taskId, taskInfo] = activeTask
@@ -47,7 +47,7 @@ export const TeamPanel = ({ team }) => {
     const completedTasks = Object.entries(currentRound.tasks)
       .filter(
         // eslint-disable-next-line no-unused-vars
-        ([_, task]) => task.teamId === team.id && task.deviceId === rover.id && task.status === 2
+        ([_, task]) => task.teamId === team.id && task.uniqueId === rover.id && task.status === 2
       )
       .map(([taskId, taskInfo]) => {
         const taskName = tasks[taskId]?.name || `Task ${taskId}`
