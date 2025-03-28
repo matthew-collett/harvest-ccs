@@ -25,7 +25,7 @@
     "@firebase/auth": "^1.9.1",
     "electron-window-state": "^5.0.3",
     "firebase": "^11.5.0",
-    "lucide-react": "^0.474.0",
+    "lucide-react": "^0.484.0",
     "react-tournament-bracket": "^0.2.4",
     "serialport": "^13.0.0",
     "zustand": "^5.0.3"
@@ -63,12 +63,30 @@
       {
         "path": "@semantic-release/github",
         "assets": [
-          "dist/**/HarvestCCS-*.dmg",
-          "dist/**/HarvestCCS-*.exe",
-          "dist/**/harvest-ccs-*.AppImage",
-          "dist/**/harvest-ccs-*.deb",
-          "dist/**/harvest-ccs-*.rpm",
-          "dist/**/harvest-ccs-*.zip"
+          {
+            "path": "dist/**/HarvestCCS-*.dmg",
+            "label": "macOS Installer"
+          },
+          {
+            "path": "dist/**/HarvestCCS-*.exe",
+            "label": "Windows Installer"
+          },
+          {
+            "path": "dist/**/harvest-ccs-*.AppImage",
+            "label": "Linux AppImage"
+          },
+          {
+            "path": "dist/**/harvest-ccs-*.deb",
+            "label": "Debian Package"
+          },
+          {
+            "path": "dist/**/harvest-ccs-*.rpm",
+            "label": "RPM Package"
+          },
+          {
+            "path": "dist/**/harvest-ccs-*.zip",
+            "label": "Archive"
+          }
         ]
       }
     ]
