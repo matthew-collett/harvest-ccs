@@ -98,7 +98,9 @@ jobs:
           path: ./app/dist
 
       - name: Run semantic-release
-        run: npx semantic-release
+        run: |
+          yarn --frozen-lockfile
+          npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
