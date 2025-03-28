@@ -33,6 +33,7 @@ jobs:
       - name: Lint
         run: yarn lint
   build:
+    needs: lint
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
