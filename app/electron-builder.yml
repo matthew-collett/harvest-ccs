@@ -26,6 +26,7 @@ nsis:
 mac:
   icon: resources/icons/mac/icon.icns
   notarize: false
+  identity: null
   artifactName: HarvestCCS-${version}.${ext}
   extendInfo:
     NSCameraUsageDescription: Application requests access to the device's camera.
@@ -44,9 +45,9 @@ linux:
   maintainer: matthew.collett12@gmail.com
   category: Utility
   icon: resources/icons/png/1024x1024.png
-  artifactName: HarvestCCS-${version}.${ext}
+  artifactName: harvest-ccs-${version}.${ext}
 
 appImage:
-  artifactName: HarvestCCS-${version}.${ext}
+  artifactName: harvest-ccs-${version}.${ext}
 
 npmRebuild: false
