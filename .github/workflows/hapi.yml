@@ -60,7 +60,7 @@ jobs:
               "runtime": "python3.12",
               "s3_bucket": "${{ secrets.S3_BUCKET }}",
               "environment_variables": {
-                "FIREBASE_SERVICE_ACCOUNT": "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}",
+                "FIREBASE_SERVICE_ACCOUNT_B64": "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}",
                 "S3_BUCKET": "${{ secrets.S3_BUCKET }}"
               }
             }
