@@ -1,4 +1,3 @@
-// store.js
 import { create } from 'zustand'
 import {
   createSettingsSlice,
@@ -8,7 +7,7 @@ import {
   createTaskSlice,
   createTournamentSlice
 } from '@/store/slices'
-import { VIEWS, getViewById } from '@/views'
+import { getViewById } from '@/views'
 
 let isStoreInitialized = false
 
@@ -192,7 +191,7 @@ export const useStore = create((set, get) => {
       await initializeStore()
       set({ isInitialized: true })
     },
-    currentViewId: VIEWS.SETTINGS.id,
+    currentViewId: null,
     setCurrentView: (view) => set({ currentViewId: view.id }),
     getCurrentView: () => getViewById(get().currentViewId),
     isSidebarCollapsed: false,

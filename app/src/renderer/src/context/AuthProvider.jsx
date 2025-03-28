@@ -11,13 +11,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
-        setUser(user)
-
         if (user) {
-          const token = await user.getIdToken()
-          await window.context.setToken(token)
+          try {
+            const token = await user.getIdToken(true)
+            await window.context.setToken(token)
+            setUser(user)
+          } catch (err) {
+            await window.context.clearToken()
+            await signOut(auth)
+            setUser(null)
+          }
         } else {
           await window.context.clearToken()
+          setUser(null)
         }
       } catch (err) {
         console.error('Auth state change error:', err)
@@ -37,20 +43,15 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logout = async () => {
-    await window.context.clearToken()
     await signOut(auth)
+    await window.context.clearToken()
   }
 
   const refreshToken = async () => {
     if (user) {
-      try {
-        const token = await user.getIdToken(true)
-        await window.context.setToken(token)
-        return token
-      } catch (err) {
-        console.error('Token refresh error:', err)
-        throw err
-      }
+      const token = await user.getIdToken(true)
+      await window.context.setToken(token)
+      return token
     }
     return null
   }

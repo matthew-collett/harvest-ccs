@@ -4,6 +4,7 @@ import { TeamsView } from '@/views/teams'
 import { CompetitionView } from '@/views/competition'
 import { ScoringView } from '@/views/scoring'
 import { LeaderboardView } from '@/views/leaderboard'
+import { LoadingView } from '@/views/loading'
 
 export const VIEWS = {
   SETTINGS: {
@@ -40,12 +41,17 @@ export const VIEWS = {
     component: LeaderboardView,
     icon: Trophy,
     description: 'Track brackets, manage round progression, and view leaderboards'
+  },
+  LOADING: {
+    id: 'loading',
+    component: LoadingView,
+    label: 'Loading'
   }
 }
 
-export const VIEW_LIST = Object.values(VIEWS)
+export const VIEW_LIST = Object.values(VIEWS).filter((v) => v.id !== 'loading')
 
 export const getViewById = (id) => {
   const found = Object.keys(VIEWS).find((key) => VIEWS[key].id === id)
-  return found ? VIEWS[found] : VIEWS.SETTINGS
+  return found ? VIEWS[found] : VIEWS.LOADING
 }

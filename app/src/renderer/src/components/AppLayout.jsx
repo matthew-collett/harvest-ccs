@@ -1,4 +1,3 @@
-// AppLayout.jsx
 import { useEffect } from 'react'
 import { RootLayout, Sidebar, Content, Nav } from '@/components'
 import { useStore } from '@/store'
