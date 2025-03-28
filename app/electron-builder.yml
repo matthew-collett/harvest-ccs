@@ -18,7 +18,7 @@ win:
   icon: resources/icons/win/icon.ico
 
 nsis:
-  artifactName: HarvestCCS.${ext}
+  artifactName: HarvestCCS-${version}-setup.${ext}
   shortcutName: Harvest Competition Control System
   uninstallDisplayName: Harvest Competition Control System
   createDesktopShortcut: always
@@ -27,7 +27,7 @@ mac:
   icon: resources/icons/mac/icon.icns
   notarize: false
   identity: null
-  artifactName: HarvestCCS.${ext}
+  artifactName: HarvestCCS-${version}.${ext}
   extendInfo:
     NSCameraUsageDescription: Application requests access to the device's camera.
     NSMicrophoneUsageDescription: Application requests access to the device's microphone.
@@ -35,7 +35,7 @@ mac:
     NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
 
 dmg:
-  artifactName: HarvestCCS.${ext}
+  artifactName: HarvestCCS-${version}.${ext}
 
 linux:
   target:
@@ -45,9 +45,9 @@ linux:
   maintainer: matthew.collett12@gmail.com
   category: Utility
   icon: resources/icons/png/1024x1024.png
-  artifactName: harvest-ccs.${ext}
+  artifactName: harvest-ccs-${version}.${ext}
 
 appImage:
-  artifactName: harvest-ccs.${ext}
+  artifactName: harvest-ccs-${version}.${ext}
 
 npmRebuild: false
