@@ -63,12 +63,24 @@
       {
         "path": "@semantic-release/github",
         "assets": [
-          "dist/**/HarvestCCS-*.dmg",
-          "dist/**/HarvestCCS-*.exe",
-          "dist/**/harvest-ccs-*.AppImage",
-          "dist/**/harvest-ccs-*.deb",
-          "dist/**/harvest-ccs-*.rpm",
-          "dist/**/harvest-ccs-*.zip"
+          {
+            "path": "dist/**/HarvestCCS-*.dmg"
+          },
+          {
+            "path": "dist/**/HarvestCCS-*.exe"
+          },
+          {
+            "path": "dist/**/harvest-ccs-*.AppImage"
+          },
+          {
+            "path": "dist/**/harvest-ccs-*.deb"
+          },
+          {
+            "path": "dist/**/harvest-ccs-*.rpm"
+          },
+          {
+            "path": "dist/**/harvest-ccs-*.zip"
+          }
         ]
       }
     ]
