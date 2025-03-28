@@ -74,6 +74,10 @@ jobs:
           path: ./app/dist/
 
   release:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -96,11 +100,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ./app/dist
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-      - name: Run semantic-release
-        run: |
-          yarn --frozen-lockfile
-          npx semantic-release
+      - name: Release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
