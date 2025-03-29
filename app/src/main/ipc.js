@@ -3,10 +3,8 @@ import api from './api'
 import serialManager from './serial'
 
 export function setupIPC() {
-  ipcMain.handle('state:get', async () => await api.getState())
-  ipcMain.handle('state:save', async (_, state) => await api.saveState(state))
-  ipcMain.handle('auth:set', (_, token) => api.setToken(token))
-  ipcMain.handle('auth:clear', () => api.clearToken())
+  ipcMain.handle('state:get', async (_, token) => await api.getState(token))
+  ipcMain.handle('state:save', async (_, state, token) => await api.saveState(state, token))
 
   ipcMain.handle('serial:list-ports', async () => {
     const { SerialPort } = await import('serialport')

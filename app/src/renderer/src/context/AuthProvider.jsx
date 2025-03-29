@@ -11,22 +11,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
-        if (user) {
-          try {
-            const token = await user.getIdToken(true)
-            await window.context.setToken(token)
-            setUser(user)
-          } catch (err) {
-            await window.context.clearToken()
-            await signOut(auth)
-            setUser(null)
-          }
-        } else {
-          await window.context.clearToken()
+        if (!user) {
           setUser(null)
+          await signOut(auth)
+          return
         }
-      } catch (err) {
-        console.error('Auth state change error:', err)
+        setUser(user)
       } finally {
         setLoading(false)
       }
@@ -36,32 +26,18 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (email, password) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password)
-    const token = await userCredential.user.getIdToken()
-    await window.context.setToken(token)
-    return userCredential.user
+    await signInWithEmailAndPassword(auth, email, password)
   }
 
   const logout = async () => {
     await signOut(auth)
-    await window.context.clearToken()
-  }
-
-  const refreshToken = async () => {
-    if (user) {
-      const token = await user.getIdToken(true)
-      await window.context.setToken(token)
-      return token
-    }
-    return null
   }
 
   const value = {
     user,
     loading,
     login,
-    logout,
-    refreshToken
+    logout
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

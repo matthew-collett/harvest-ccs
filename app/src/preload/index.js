@@ -6,10 +6,8 @@ if (!process.contextIsolated) {
 
 try {
   contextBridge.exposeInMainWorld('context', {
-    getState: () => ipcRenderer.invoke('state:get'),
-    saveState: (state) => ipcRenderer.invoke('state:save', state),
-    setToken: (token) => ipcRenderer.invoke('auth:set', token),
-    clearToken: () => ipcRenderer.invoke('auth:clear')
+    getState: (token) => ipcRenderer.invoke('state:get', token),
+    saveState: (state, token) => ipcRenderer.invoke('state:save', state, token)
   })
 
   contextBridge.exposeInMainWorld('serialAPI', {

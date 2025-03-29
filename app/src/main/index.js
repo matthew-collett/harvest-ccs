@@ -17,13 +17,11 @@ const iconPath =
 
 const createWindow = () => {
   const windowState = windowStateKeeper({
-    defaultWidth: 900,
-    defaultHeight: 670
+    defaultWidth: 1200,
+    defaultHeight: 800
   })
 
   mainWindow = new BrowserWindow({
-    x: windowState.x,
-    y: windowState.y,
     width: windowState.width,
     height: windowState.height,
     show: false,

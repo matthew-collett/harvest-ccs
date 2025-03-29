@@ -8,6 +8,7 @@ import {
   createTournamentSlice
 } from '@/store/slices'
 import { getViewById } from '@/views'
+import { auth } from '@/utils/firebase'
 
 let isStoreInitialized = false
 
@@ -36,7 +37,8 @@ export const useStore = create((set, get) => {
 
     if (typeof window !== 'undefined') {
       try {
-        const savedState = await window.context.getState()
+        const token = await auth.currentUser?.getIdToken()
+        const savedState = await window.context.getState(token)
         if (savedState && Object.keys(savedState).length > 0) {
           set(savedState)
           lastSavedState = getStateToSync(savedState)
@@ -172,7 +174,8 @@ export const useStore = create((set, get) => {
     }
     try {
       isSaving = true
-      await window.context.saveState(currentState)
+      const token = await auth.currentUser?.getIdToken()
+      await window.context.saveState(currentState, token)
       lastSavedState = currentState
       if (pendingChanges) {
         pendingChanges = false
