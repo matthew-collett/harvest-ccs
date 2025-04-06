@@ -17,9 +17,9 @@ export const Sidebar = ({ className, children, ...props }) => {
     >
       <button
         onClick={toggleSidebar}
-        className="absolute right-0 -top-3 p-2 text-zinc-400 hover:text-zinc-100 transition-colors z-10"
+        className="absolute right-0 bottom-0 p-4 text-zinc-400 hover:text-zinc-100 transition-colors"
       >
-        {isSidebarCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+        {isSidebarCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
       </button>
       <div className="w-full h-full overflow-y-auto overflow-x-hidden">{children}</div>
     </aside>

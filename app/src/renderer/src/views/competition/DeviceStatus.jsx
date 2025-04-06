@@ -71,7 +71,7 @@ export const DeviceStatus = ({ device, type, currentTask, completedTasks = [] })
             <span className="bg-zinc-600 px-2 py-1 rounded">{device.disabledTimer}s</span>
           )}
         </div>
-        {device.type === 'rover' && (
+        {device.type.toLowerCase() === 'rover' && (
           <div className="text-sm">
             <div className="mb-1">
               <span className="text-zinc-400">Current Task: </span>

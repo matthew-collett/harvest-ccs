@@ -27,7 +27,7 @@ export const Nav = () => {
           <button
             key={view.id}
             onClick={() => setCurrentView(view)}
-            className={`p-2 text-left rounded-md transition-colors flex items-center gap-3 ${
+            className={`p-2 text-left rounded-md transition-colors flex items-center gap-3 text-nowrap ${
               currentView.id === view.id ? 'bg-zinc-700/50' : 'hover:bg-zinc-700/50'
             } whitespace-nowrap`}
             title={view.label}

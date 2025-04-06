@@ -2,8 +2,8 @@ import { DeviceStatus } from '@/views/competition'
 import { useStore } from '@/store/useStore'
 
 export const TeamPanel = ({ team }) => {
-  const harvesters = team.devices.filter((device) => device.type === 'harvester')
-  const rovers = team.devices.filter((device) => device.type === 'rover')
+  const harvesters = team.devices.filter((device) => device.type.toLowerCase() === 'harvester')
+  const rovers = team.devices.filter((device) => device.type.toLowerCase() === 'rover')
   const currentRound = useStore((state) => state.currentRound)
   const tasks = useStore((state) => state.tasks)
 

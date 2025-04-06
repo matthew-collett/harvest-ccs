@@ -7,9 +7,6 @@ export const MatchBox = ({
   getTeamName,
   isFirstRound
 }) => {
-  if (!matchData) return null
-
-  // check if this match has a winner
   const hasWinner = !!matchData.winner
 
   return (

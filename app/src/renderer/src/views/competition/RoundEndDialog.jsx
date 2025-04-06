@@ -4,7 +4,7 @@ import { useStore } from '@/store/useStore'
 import { useEffect, useState } from 'react'
 
 export const RoundEndDialog = ({ team1, team2, onNewTeams }) => {
-  const rounds = useStore((state) => state.rounds)
+  const { rounds, calculateTeamPoints } = useStore()
   const [roundScores, setRoundScores] = useState({ team1: 0, team2: 0 })
 
   useEffect(() => {
@@ -75,11 +75,11 @@ export const RoundEndDialog = ({ team1, team2, onNewTeams }) => {
           <div className="flex justify-between mb-4">
             <div className="text-center">
               <div className="font-bold">{team1.name}</div>
-              <div className="text-lg">{team1.score + roundScores.team1} pts</div>
+              <div className="text-lg">{calculateTeamPoints(team1.id)} pts</div>
             </div>
             <div className="text-center">
               <div className="font-bold">{team2.name}</div>
-              <div className="text-lg">{team2.score + roundScores.team2} pts</div>
+              <div className="text-lg">{calculateTeamPoints(team2.id)} pts</div>
             </div>
           </div>
         </div>

@@ -12,10 +12,17 @@ export const CompetitionView = () => {
     resumeRound,
     endRound,
     setTeams,
-    resetRound
+    resetRound,
+    settings
   } = useStore()
   const [showRoundEnd, setShowRoundEnd] = useState(false)
   const [lastRoundTeams, setLastRoundTeams] = useState({ team1: null, team2: null })
+
+  useEffect(() => {
+    if (!currentRound.isActive) {
+      resetRound()
+    }
+  }, [resetRound, settings?.roundDuration])
 
   useEffect(() => {
     if (!currentRound.isActive && currentRound.time === 0) {

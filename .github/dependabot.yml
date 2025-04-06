@@ -6,7 +6,6 @@ updates:
       interval: 'weekly'
     open-pull-requests-limit: 10
     labels:
-      - 'dependencies'
       - 'app'
     ignore:
       - dependency-name: '*'
@@ -18,7 +17,6 @@ updates:
       interval: 'weekly'
     open-pull-requests-limit: 10
     labels:
-      - 'dependencies'
       - 'hapi'
     ignore:
       - dependency-name: '*'

@@ -37,11 +37,13 @@ export const createDeviceSlice = (set) => ({
     }))
 })
 
-const getDeviceType = (deviceId) => {
+export const getDeviceType = (deviceId) => {
   switch (deviceId) {
     case 1:
       return 'rover'
     case 2:
       return 'harvester'
+    default:
+      return 'unknown'
   }
 }

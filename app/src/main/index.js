@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, nativeTheme } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import windowStateKeeper from 'electron-window-state'
@@ -16,6 +16,8 @@ const iconPath =
       : join(__dirname, '../../resources/icons/png/1024.png')
 
 const createWindow = () => {
+  nativeTheme.themeSource = 'dark'
+
   const windowState = windowStateKeeper({
     defaultWidth: 1200,
     defaultHeight: 800

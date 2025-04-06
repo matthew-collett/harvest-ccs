@@ -1,6 +1,6 @@
 {
   "name": "harvest-ccs",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Harvest Competition Control System",
   "homepage": "https://github.com/matthew-collett/harvest-ccs",
   "license": "ISC",
@@ -78,14 +78,6 @@
           {
             "path": "dist/**/harvest-ccs-*.deb",
             "label": "Debian Package"
-          },
-          {
-            "path": "dist/**/harvest-ccs-*.rpm",
-            "label": "RPM Package"
-          },
-          {
-            "path": "dist/**/harvest-ccs-*.zip",
-            "label": "Archive"
           }
         ]
       }
